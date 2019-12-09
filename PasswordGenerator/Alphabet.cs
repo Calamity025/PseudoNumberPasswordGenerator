@@ -26,6 +26,7 @@ namespace PasswordGenerator
             {'Y', 'Z', '_', '!', '@', '+' },
             {'$', '%', '=', '&', '-', '?' },
         };
+        private static readonly List<string> diceware = Reader.Read();
 
         private Alphabet() { }
 
@@ -56,6 +57,14 @@ namespace PasswordGenerator
                 {
                     throw new IndexOutOfRangeException();
                 }
+            }
+        }
+
+        public string this[int x]
+        {
+            get
+            {
+                return diceware[x];
             }
         }
 

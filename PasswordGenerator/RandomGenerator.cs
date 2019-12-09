@@ -16,9 +16,10 @@ namespace PasswordGenerator
         
         public int Next()
         {
-            byte[] rnd = new byte[1];
+            byte[] rnd = new byte[8];
             _random.GetBytes(rnd);
-            return (int)rnd[0];
+            var value = BitConverter.ToInt32(rnd);
+            return value < 0 ? value * -1 : value;
         }
     }
 }

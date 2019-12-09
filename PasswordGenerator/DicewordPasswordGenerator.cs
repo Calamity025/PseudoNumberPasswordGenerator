@@ -4,11 +4,11 @@ using System.Text;
 
 namespace PasswordGenerator
 {
-    public class PasswordGenerator
+    class DicewordPasswordGenerator : IPasswordGenerator
     {
         private RandomGenerator _random;
         private readonly Alphabet _alphabet;
-        public PasswordGenerator()
+        public DicewordPasswordGenerator()
         {
             _random = new RandomGenerator();
             _alphabet = Alphabet.GetInstance();
@@ -17,19 +17,18 @@ namespace PasswordGenerator
         public string Generate(int passwordLength)
         {
             var builder = new StringBuilder();
+            var wordCount = 0;
 
-            while (builder.Length < passwordLength)
+            while (wordCount < passwordLength)
             {
-                var dice1 = _random.Next() % 6;
-                var dice2 = _random.Next() % 6;
-                var coinFlip = _random.Next() % 2;
+                var dice = _random.Next() % 7776;
 
-                var currChar = _alphabet[dice1, dice2, coinFlip];
-                builder.Append(currChar);
+                var currWord = _alphabet[dice];
+                builder.Append($"{currWord}-");
+                wordCount++;
             }
-
-            return builder.ToString(); 
+            builder.Remove(builder.Length - 1, 1);
+            return builder.ToString();
         }
-
     }
 }
