@@ -9,6 +9,7 @@ namespace PasswordGenerator
     {
         private RandomGenerator _random;
         private readonly Alphabet _alphabet;
+
         public DicewordPasswordGenerator()
         {
             _random = new RandomGenerator();
@@ -66,6 +67,13 @@ namespace PasswordGenerator
 
             builder.Remove(builder.Length - 1, 1);
             return builder.ToString();
+        }
+
+        public int Length => GetAlgorithmAlphabet();
+
+        private int GetAlgorithmAlphabet()
+        {
+            return 7776 * 2 - 308 + 5912;
         }
     }
 }

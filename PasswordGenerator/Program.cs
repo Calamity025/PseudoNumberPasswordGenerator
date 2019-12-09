@@ -18,12 +18,15 @@ namespace PasswordGenerator
         {
             Console.Write("\nEnter password length: ");
             var length = Convert.ToInt32(Console.ReadLine());
-            var password = _passwordGenerator.Generate(length);
-            Console.WriteLine(password);
-            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776, length));
-            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776, length) / length);
-            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776 * 2 + 5912, length));
-            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776 * 2 + 5912, length) / length);
+            for(int i = 0; i < 5; i++)
+            {
+                var password = _passwordGenerator.Generate(length);
+                Console.WriteLine(password);
+            }
+            //Console.WriteLine("Entropy of standard Diceware generator: " + _strengthChecker.GetPasswordStrength(7776, length));
+            //Console.WriteLine("Entropy per character of standard Diceware generator: " + _strengthChecker.GetPasswordStrength(7776, length) / length);
+            Console.WriteLine("Entropy: " + _strengthChecker.GetPasswordStrength(_passwordGenerator.Length, length));
+            Console.WriteLine("Entropy per character: " + _strengthChecker.GetPasswordStrength(_passwordGenerator.Length, length) / length);
             Console.ReadKey();
         }
 

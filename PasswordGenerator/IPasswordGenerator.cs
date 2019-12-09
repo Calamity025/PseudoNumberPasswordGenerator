@@ -7,5 +7,6 @@ namespace PasswordGenerator
     public interface IPasswordGenerator
     {
         string Generate(int length);
+        int Length { get; }
     }
 }

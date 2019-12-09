@@ -31,5 +31,6 @@ namespace PasswordGenerator
             return builder.ToString(); 
         }
 
+        public int Length => _alphabet.Length;
     }
 }
