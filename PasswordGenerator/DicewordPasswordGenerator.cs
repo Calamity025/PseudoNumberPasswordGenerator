@@ -7,13 +7,13 @@ namespace PasswordGenerator
 {
     class DicewordPasswordGenerator : IPasswordGenerator
     {
-        private RandomGenerator _random;
-        private readonly Alphabet _alphabet;
+        private readonly RandomGenerator _random;
+        private readonly List<string> _alphabet;
 
         public DicewordPasswordGenerator()
         {
             _random = new RandomGenerator();
-            _alphabet = Alphabet.GetInstance();
+            _alphabet = Alphabet.GetInstance().DicewareAlph;
         }
 
         public string Generate(int passwordLength)

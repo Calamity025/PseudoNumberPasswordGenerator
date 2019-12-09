@@ -11,10 +11,10 @@ namespace PasswordGenerator
         static Program()
         {
             _strengthChecker = new StrengthChecker();
-            _passwordGenerator = PasswordGeneratorFactory.GetPasswordGenerator(PasswordGeneratorFactory.AvailableFactories.Diceware);
+            _passwordGenerator = PasswordGeneratorFactory.GetPasswordGenerator(PasswordGeneratorFactory.AvailableFactories.Mechanical);
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             Console.Write("\nEnter password length: ");
             var length = Convert.ToInt32(Console.ReadLine());
@@ -23,8 +23,7 @@ namespace PasswordGenerator
                 var password = _passwordGenerator.Generate(length);
                 Console.WriteLine(password);
             }
-            //Console.WriteLine("Entropy of standard Diceware generator: " + _strengthChecker.GetPasswordStrength(7776, length));
-            //Console.WriteLine("Entropy per character of standard Diceware generator: " + _strengthChecker.GetPasswordStrength(7776, length) / length);
+
             Console.WriteLine("Entropy: " + _strengthChecker.GetPasswordStrength(_passwordGenerator.Length, length));
             Console.WriteLine("Entropy per character: " + _strengthChecker.GetPasswordStrength(_passwordGenerator.Length, length) / length);
             Console.ReadKey();
