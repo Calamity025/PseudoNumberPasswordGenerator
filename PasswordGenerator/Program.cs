@@ -20,7 +20,10 @@ namespace PasswordGenerator
             var length = Convert.ToInt32(Console.ReadLine());
             var password = _passwordGenerator.Generate(length);
             Console.WriteLine(password);
-
+            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776, length));
+            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776, length) / length);
+            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776 * 2 + 5912, length));
+            Console.WriteLine(_strengthChecker.GetPasswordStrength(7776 * 2 + 5912, length) / length);
             Console.ReadKey();
         }
 
