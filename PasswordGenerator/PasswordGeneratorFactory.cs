@@ -14,15 +14,12 @@ namespace PasswordGenerator
 
         public static IPasswordGenerator GetPasswordGenerator(AvailableFactories factory)
         {
-            switch (factory)
+            return factory switch
             {
-                case AvailableFactories.Diceware:
-                    return new DicewordPasswordGenerator();
-                case AvailableFactories.Mechanical:
-                    return new MechanicalPasswordGenerator();
-                default:
-                    return null;
-            }
+                AvailableFactories.Diceware => new DicewordPasswordGenerator(),
+                AvailableFactories.Mechanical => new MechanicalPasswordGenerator(),
+                _ => null,
+            };
         }
     }
 }

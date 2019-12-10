@@ -11,11 +11,11 @@ namespace PasswordGenerator
         static Program()
         {
             _strengthChecker = new StrengthChecker();
-            _passwordGenerator = PasswordGeneratorFactory.GetPasswordGenerator(PasswordGeneratorFactory.AvailableFactories.Mechanical);
+            _passwordGenerator = PasswordGeneratorFactory.GetPasswordGenerator(PasswordGeneratorFactory.AvailableFactories.Diceware);
         }
 
         static void Main()
-        {
+        {  
             Console.Write("\nEnter password length: ");
             var length = Convert.ToInt32(Console.ReadLine());
             for(int i = 0; i < 5; i++)
