@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PasswordGenerator
 {
-    public interface IPasswordGenerator
+    internal interface IPasswordGenerator
     {
         string Generate(int length);
         int Length { get; }

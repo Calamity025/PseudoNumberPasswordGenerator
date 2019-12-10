@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PasswordGenerator
 {
-    public class Alphabet
+    internal class Alphabet
     {
         private static readonly object _locker = new object();
         private static Alphabet _alphabetInstance;
@@ -27,7 +27,6 @@ namespace PasswordGenerator
                 {'$', '%', '=', '&', '-', '?' },
             }
         };
-        private static readonly List<string> diceware = Reader.Read();
 
         private Alphabet() { }
 
@@ -40,6 +39,6 @@ namespace PasswordGenerator
         }
 
         public char[,,] MechanicalAlph => mechanicalAlph;
-        public List<string> DicewareAlph => diceware;
+        public List<string> DicewareAlph => Reader.Read();
     }
 }

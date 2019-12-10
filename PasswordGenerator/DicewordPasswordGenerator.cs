@@ -5,15 +5,15 @@ using System.Text;
 
 namespace PasswordGenerator
 {
-    class DicewordPasswordGenerator : IPasswordGenerator
+    internal class DicewordPasswordGenerator : IPasswordGenerator
     {
         private readonly RandomGenerator _random;
-        private readonly List<string> _alphabet;
+        private readonly Alphabet _alphabet;
 
-        public DicewordPasswordGenerator()
+        public DicewordPasswordGenerator(RandomGenerator rnd)
         {
-            _random = new RandomGenerator();
-            _alphabet = Alphabet.GetInstance().DicewareAlph;
+            _random = rnd;
+            _alphabet = Alphabet.GetInstance();
         }
 
         public string Generate(int passwordLength)
@@ -26,7 +26,7 @@ namespace PasswordGenerator
                 var dice = _random.Next() % 7776;
                 var uppercase = _random.Next() % 2;
 
-                var currWord = _alphabet[dice];
+                var currWord = _alphabet.DicewareAlph[dice];
                 var temp = currWord.ToCharArray();
                 if (uppercase == 1)
                 {
@@ -69,11 +69,21 @@ namespace PasswordGenerator
             return builder.ToString();
         }
 
-        public int Length => GetAlgorithmAlphabet();
+        public int Length => _alphabet.DicewareAlph.Count + _alphabet.DicewareAlph.Count(x => Char.IsLetter(x.First())) + GetReplaceableCharCount();
 
-        private int GetAlgorithmAlphabet()
+        private int GetReplaceableCharCount()
         {
-            return 7776 * 2 - 308 + 5912;
+            var count = 0;
+            _alphabet.DicewareAlph.ForEach(str =>
+            {
+                foreach (char ch in str.Skip(1))
+                {
+                    if (ch == 'o' || ch == 'i' || ch == 'l')
+                        count++;
+                }
+            });
+            return count;
+
         }
     }
 }

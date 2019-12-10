@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PasswordGenerator
 {
-    public static class PasswordGeneratorFactory
+    internal static class PasswordGeneratorFactory
     {
         public enum AvailableFactories 
         {
@@ -12,13 +12,16 @@ namespace PasswordGenerator
             Mechanical
         }
 
-        public static IPasswordGenerator GetPasswordGenerator(AvailableFactories factory)
+        public static IPasswordGenerator GetPasswordGenerator(AvailableFactories factory, RandomGenerator rnd)
         {
-            return factory switch
+            switch (factory)
             {
-                AvailableFactories.Diceware => new DicewordPasswordGenerator(),
-                AvailableFactories.Mechanical => new MechanicalPasswordGenerator(),
-                _ => null,
+                case AvailableFactories.Diceware:
+                    return new DicewordPasswordGenerator(rnd);
+                case AvailableFactories.Mechanical:
+                    return new MechanicalPasswordGenerator(rnd);
+                default:
+                    return null;
             };
         }
     }
