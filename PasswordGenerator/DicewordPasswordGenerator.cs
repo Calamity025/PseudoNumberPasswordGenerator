@@ -23,7 +23,7 @@ namespace PasswordGenerator
 
             while (wordCount < passwordLength)
             {
-                var dice = _random.Next() % 7776;
+                var dice = _random.Next() % _alphabet.DicewareAlph.Count;
                 var uppercase = _random.Next() % 2;
 
                 var currWord = _alphabet.DicewareAlph[dice];
