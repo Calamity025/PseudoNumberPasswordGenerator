@@ -24,11 +24,11 @@ namespace PasswordGenerator
             while (wordCount < passwordLength)
             {
                 var dice = _random.Next() % _alphabet.DicewareAlph.Count;
-                var uppercase = _random.Next() % 2;
+                //var uppercase = _random.Next() % 2;
 
                 var currWord = _alphabet.DicewareAlph[dice];
                 var temp = currWord.ToCharArray();
-                if (uppercase == 1)
+                /*if (uppercase == 1)
                 {
                     temp[0] = temp[0].ToString().ToUpper()[0];
                 }
@@ -60,7 +60,7 @@ namespace PasswordGenerator
                             break;
                     } 
                 }
-                
+                */
                 builder.Append($"{new string(temp)}-");
                 wordCount++;
             }

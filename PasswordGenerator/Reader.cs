@@ -15,7 +15,7 @@ namespace PasswordGenerator
 
         public static List<string> Read()
         {
-            var path = Path ?? Directory.GetCurrentDirectory().Remove(Directory.GetCurrentDirectory().Length - 15) + "\\diceware.wordlist.txt";
+            var path = Path ?? Directory.GetCurrentDirectory().Remove(Directory.GetCurrentDirectory().Length - 15) + "\\diceware.wordlist";
             if (currentVersion == null || currentVersion != path)
             {
                 using (var file = new StreamReader(File.OpenRead(path)))
@@ -25,7 +25,6 @@ namespace PasswordGenerator
                     var result = lines.SkipWhile(x => x.Length < 5 || !x.Take(5).All(ch => Char.IsDigit(ch))).TakeWhile(x => x.Length > 5 && x.Take(5).All(ch => Char.IsDigit(ch))).Select(x => x.Split('\t')[1]).ToList();
                     currentVersion = path;
                     diceware = result;
-                    Debug.Print(path);
                 }
             }
             return diceware;
