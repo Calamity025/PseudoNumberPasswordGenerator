@@ -39,6 +39,10 @@ namespace View
             this.generatePasswordButton = new System.Windows.Forms.Button();
             this.resultTextbox = new System.Windows.Forms.TextBox();
             this.trackBarValueLabel = new System.Windows.Forms.Label();
+            this.algoritmSelector1 = new System.Windows.Forms.RadioButton();
+            this.algoritmSelector2 = new System.Windows.Forms.RadioButton();
+            this.algorithmSelectorLabel = new System.Windows.Forms.Label();
+            this.gb = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.passwordLengthTrackBar)).BeginInit();
             this.passwordLengthTrackBar.ValueChanged += (x, y) => trackBarValueLabel.Text = passwordLengthTrackBar.Value.ToString();
             this.SuspendLayout();
@@ -61,7 +65,7 @@ namespace View
             this.trackBarLabel.Name = "label1";
             this.trackBarLabel.Size = new System.Drawing.Size(302, 24);
             this.trackBarLabel.TabIndex = 1;
-            this.trackBarLabel.Text = "Кількість слів: ";
+            this.trackBarLabel.Text = "Кількість слів або символів: ";
             // 
             // changeDicewareWordList
             // 
@@ -72,6 +76,7 @@ namespace View
             this.changeDicewareWordList.Text = "Вибрати користувацький набір слів";
             this.changeDicewareWordList.UseVisualStyleBackColor = true;
             this.changeDicewareWordList.Click += new EventHandler(OnFileSelect);
+            
             // 
             // generatePasswordButton
             // 
@@ -82,6 +87,23 @@ namespace View
             this.generatePasswordButton.Text = "Згенерувати паролі";
             this.generatePasswordButton.UseVisualStyleBackColor = true;
             this.generatePasswordButton.Click += new EventHandler(OnGenerateClick);
+            
+            this.algoritmSelector1.Location = new System.Drawing.Point(10, 20);
+            this.algoritmSelector1.Checked = true;
+            this.algoritmSelector1.Text = "Модифікація Diceware";
+            this.algoritmSelector1.Size = new System.Drawing.Size(120, 50);
+            this.algoritmSelector1.CheckedChanged += new EventHandler(RadioBoxChanged);
+
+            this.algoritmSelector2.Location = new System.Drawing.Point(135, 20);
+            this.algoritmSelector2.Text = "Механічний алгоритм";
+            this.algoritmSelector2.Size = new System.Drawing.Size(120, 50);
+            this.algoritmSelector2.CheckedChanged += new EventHandler(RadioBoxChanged);
+
+            this.gb.Text = "Вибір алгоритму";
+            this.gb.Size = new System.Drawing.Size(285, 90);
+            this.gb.Location = new System.Drawing.Point(25, 170);
+            this.gb.Controls.Add(this.algoritmSelector1);
+            this.gb.Controls.Add(this.algoritmSelector2);
             // 
             // resultTextBox
             // 
@@ -118,12 +140,35 @@ namespace View
             this.Controls.Add(this.changeDicewareWordList);
             this.Controls.Add(this.trackBarLabel);
             this.Controls.Add(this.passwordLengthTrackBar);
+            this.Controls.Add(this.gb);
             this.Name = "Form1";
             this.Text = "Password generator";
             ((System.ComponentModel.ISupportInitialize)(this.passwordLengthTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void RadioBoxChanged(object sender, EventArgs e)
+        {
+            var radioBox = sender as System.Windows.Forms.RadioButton;
+
+            if(radioBox == null)
+            {
+                return;
+            }
+
+            if (radioBox.Checked)
+            {
+                if(radioBox.Text.Equals("Механічний алгоритм"))
+                {
+                    factory = PasswordGeneratorFactory.AvailableFactories.Mechanical;
+                }
+                else if(radioBox.Text.Equals("Модифікація Diceware"))
+                {
+                    factory = PasswordGeneratorFactory.AvailableFactories.Diceware;
+                }
+            }
         }
         
         private void OnFileSelect(object sender, EventArgs e)
@@ -136,7 +181,8 @@ namespace View
 
         private void OnGenerateClick(object sender, EventArgs e)
         {
-            var passwordGenerator = new PasswordGenerator.PasswordGenerator(Convert.ToInt64(ConfigurationManager.AppSettings.Get("seed")), path);
+            var passwordGenerator = new PasswordGenerator.PasswordGenerator(Convert.ToInt64(ConfigurationManager.AppSettings.Get("seed")), 
+                Convert.ToInt64(ConfigurationManager.AppSettings.Get("key")), Convert.ToInt64(ConfigurationManager.AppSettings.Get("iv")), path, factory);
             var res = passwordGenerator.Generate(passwordLengthTrackBar.Value);
             this.resultTextbox.Clear();
             foreach(var pass in res.Passwords)
@@ -157,6 +203,11 @@ namespace View
         private System.Windows.Forms.Button generatePasswordButton;
         private System.Windows.Forms.TextBox resultTextbox;
         private System.Windows.Forms.Label trackBarValueLabel;
+        private System.Windows.Forms.RadioButton algoritmSelector1;
+        private System.Windows.Forms.RadioButton algoritmSelector2;
+        private PasswordGenerator.PasswordGeneratorFactory.AvailableFactories factory;
+        private System.Windows.Forms.Label algorithmSelectorLabel;
+        private System.Windows.Forms.GroupBox gb;
     }
 }
 

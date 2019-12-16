@@ -44,6 +44,13 @@ namespace PasswordGenerator
                                 temp[i] = '0';
                             }
                             break;
+                        case 'о':
+                            var replaceО = _random.Next() % 2;
+                            if (replaceО == 1)
+                            {
+                                temp[i] = '0';
+                            }
+                            break;
                         case 'i':
                             var replaceI = _random.Next() % 2;
                             if (replaceI == 1)
@@ -78,7 +85,7 @@ namespace PasswordGenerator
             {
                 foreach (char ch in str.Skip(1))
                 {
-                    if (ch == 'o' || ch == 'i' || ch == 'l')
+                    if (ch == 'o' || ch == 'i' || ch == 'l' || ch == 'о')
                         count++;
                 }
             });
