@@ -1,0 +1,12 @@
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\bin\Debug\View.exe.config
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\bin\Debug\View.exe
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\bin\Debug\View.pdb
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\obj\Debug\View.csprojAssemblyReference.cache
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\obj\Debug\View.Properties.Resources.resources
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\obj\Debug\View.csproj.GenerateResource.cache
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\obj\Debug\View.exe
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\obj\Debug\View.pdb
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\bin\Debug\PasswordGenerator.dll
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\bin\Debug\PasswordGenerator.pdb
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\obj\Debug\View.csproj.CopyComplete
+C:\Users\Vitalii_Piatyhor\source\repos\PasswordGenerator\View\obj\Debug\View.MainView.resources
