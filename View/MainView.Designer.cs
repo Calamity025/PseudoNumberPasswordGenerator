@@ -181,15 +181,22 @@ namespace View
 
         private void OnGenerateClick(object sender, EventArgs e)
         {
-            var passwordGenerator = new PasswordGenerator.PasswordGenerator(Convert.ToInt64(ConfigurationManager.AppSettings.Get("seed")), 
-                Convert.ToInt64(ConfigurationManager.AppSettings.Get("key")), Convert.ToInt64(ConfigurationManager.AppSettings.Get("iv")), path, factory);
-            var res = passwordGenerator.Generate(passwordLengthTrackBar.Value);
-            this.resultTextbox.Clear();
-            foreach(var pass in res.Passwords)
-            {
-                this.resultTextbox.Text += $"{pass}" + Environment.NewLine + Environment.NewLine;
+            try {
+                var passwordGenerator = new PasswordGenerator.PasswordGenerator(Convert.ToInt64(ConfigurationManager.AppSettings.Get("seed")),
+                    Convert.ToInt64(ConfigurationManager.AppSettings.Get("key")), Convert.ToInt64(ConfigurationManager.AppSettings.Get("iv")), path, factory);
+                var res = passwordGenerator.Generate(passwordLengthTrackBar.Value);
+                this.resultTextbox.Clear();
+                foreach (var pass in res.Passwords)
+                {
+                    this.resultTextbox.Text += $"{pass}" + Environment.NewLine + Environment.NewLine;
+                }
+                this.resultTextbox.Text += $"{Environment.NewLine}From file: {res.Path ?? "default"}{Environment.NewLine}Entropy is {res.Entropy}{Environment.NewLine}Entropy per symbol is {res.EntropyPerSymbol}";
             }
-            this.resultTextbox.Text += $"{Environment.NewLine}From file: {res.Path ?? "default"}{Environment.NewLine}Entropy is {res.Entropy}{Environment.NewLine}Entropy per symbol is {res.EntropyPerSymbol}";            
+            catch(Exception ex)
+            {
+                var details = ex.InnerException == null ? "" : $"\nДеталі: {ex.InnerException.Message}";
+                System.Windows.Forms.MessageBox.Show($"Помилка: {ex.Message}{details}");
+            }
         }
 
         private string path;

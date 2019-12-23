@@ -15,19 +15,28 @@ namespace PasswordGenerator
 
         public static List<string> Read()
         {
-            var path = Path ?? Directory.GetCurrentDirectory().Remove(Directory.GetCurrentDirectory().Length - 15) + "\\diceware.wordlist";
-            if (currentVersion == null || currentVersion != path)
+            try
             {
-                using (var file = new StreamReader(File.OpenRead(path)))
+                var path = Path ?? Directory.GetCurrentDirectory() + "\\diceware.wordlist";
+                if (currentVersion == null || currentVersion != path)
                 {
-                    var stream = file.ReadToEnd();
-                    var lines = stream.Split('\n');
-                    var result = lines.SkipWhile(x => x.Length < 5 || !x.Take(5).All(ch => Char.IsDigit(ch))).TakeWhile(x => x.Length > 5 && x.Take(5).All(ch => Char.IsDigit(ch))).Select(x => x.Split('\t')[1]).ToList();
-                    currentVersion = path;
-                    diceware = result;
+                    using (var file = new StreamReader(File.OpenRead(path)))
+                    {
+                        var stream = file.ReadToEnd();
+                        var lines = stream.Split('\n');
+                        var result = lines.SkipWhile(x => x.Length < 5 || !x.Take(5).All(ch => Char.IsDigit(ch)))
+                            .TakeWhile(x => x.Length > 5 && x.Take(5).All(ch => Char.IsDigit(ch)))
+                            .Select(x => x.Split('\t')[1]).ToList();
+                        currentVersion = path;
+                        diceware = result;
+                    }
                 }
+                return diceware;
             }
-            return diceware;
+            catch(Exception ex)
+            {
+                throw new FileLoadException("Файл не може бути завантажений", ex);
+            }
         }
     }
 }

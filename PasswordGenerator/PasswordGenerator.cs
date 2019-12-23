@@ -9,7 +9,8 @@ namespace PasswordGenerator
         private readonly StrengthChecker _strengthChecker;
         private readonly IPasswordGenerator _passwordGenerator;
 
-        public PasswordGenerator(long seed, string pathToDicewareAlph = null, PasswordGeneratorFactory.AvailableFactories factory = PasswordGeneratorFactory.AvailableFactories.Diceware)
+        public PasswordGenerator(long seed, string pathToDicewareAlph = null, 
+            PasswordGeneratorFactory.AvailableFactories factory = PasswordGeneratorFactory.AvailableFactories.Diceware)
         {
             _strengthChecker = new StrengthChecker();
             if(pathToDicewareAlph != null)
@@ -17,7 +18,8 @@ namespace PasswordGenerator
             _passwordGenerator = PasswordGeneratorFactory.GetPasswordGenerator(factory, new RandomGenerator(seed));
         }
 
-        public PasswordGenerator(long seed, long key, long iv, string pathToDicewareAlph = null, PasswordGeneratorFactory.AvailableFactories factory = PasswordGeneratorFactory.AvailableFactories.Diceware)
+        public PasswordGenerator(long seed, long key, long iv, string pathToDicewareAlph = null, 
+            PasswordGeneratorFactory.AvailableFactories factory = PasswordGeneratorFactory.AvailableFactories.Diceware)
         {
             _strengthChecker = new StrengthChecker();
             if (pathToDicewareAlph != null)

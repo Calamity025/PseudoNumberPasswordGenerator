@@ -6,10 +6,7 @@ namespace PasswordGenerator
 {
     internal class StrengthChecker
     {
-        public double GetPasswordStrength(int totalNumberOfChars, int passwordLength)
-        {
-            var entropy = passwordLength * (Math.Log(totalNumberOfChars) / Math.Log(2));
-            return entropy;
-        }  
-    }
+        public double GetPasswordStrength(int totalNumberOfChars, int passwordLength) =>
+            passwordLength * (Math.Log(totalNumberOfChars) / Math.Log(2));
+    }  
 }

@@ -6,9 +6,8 @@ namespace PasswordGenerator
 {
     internal class Alphabet
     {
-        private static readonly object _locker = new object();
         private static Alphabet _alphabetInstance;
-        private static readonly char[,,] mechanicalAlph =
+        private static readonly char[,,] _mechanicalAlph =
         {
             {
                 {'a', 'b', 'c', 'd', 'e', 'f' },
@@ -30,15 +29,10 @@ namespace PasswordGenerator
 
         private Alphabet() { }
 
-        public static Alphabet GetInstance()
-        {
-            lock (_locker)
-            {
-                return _alphabetInstance ?? (_alphabetInstance = new Alphabet());
-            }
-        }
+        public static Alphabet GetInstance() =>
+                _alphabetInstance ?? (_alphabetInstance = new Alphabet());
 
-        public char[,,] MechanicalAlph => mechanicalAlph;
+        public char[,,] MechanicalAlph => _mechanicalAlph;
         public List<string> DicewareAlph => Reader.Read();
     }
 }
